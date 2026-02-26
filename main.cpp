@@ -61,6 +61,7 @@ void loadStudents(std::vector<Student*>& students){
 void printStudents(std::vector<Student*>& students){
   for (Student* s : students){
     s->printStudent();
+    std::cout << "______________________________" << std::endl;
   } // end for
   std::cout << std::endl;
 } // end printStudents
