@@ -39,7 +39,7 @@ class Date{
 Student --> Address
 Student --> Date
 ```
-
+```
 loadStudents
 open students.csv
 for each line:
@@ -88,3 +88,4 @@ loop with boolean until user choses exit in menu
   offer menu
   perform necesarry tasks
 clear student vector
+```
