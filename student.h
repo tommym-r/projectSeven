@@ -8,15 +8,17 @@ class Student{
   private:
     std::string firstName;
     std::string lastName;
-    Date birthDate;
-    Date gradDate;
-    Address address;
+    Date* birthDate;
+    Date* gradDate;
+    Address* address;
     int creditHours;
   public:
     Student();
+    ~Student();
     void init(std::string studentString);
     void printStudent();
     std::string getLastFirst();
+    std::string getLast();
 };
 
 #endif

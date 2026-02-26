@@ -6,12 +6,13 @@ Student::Student(){
   firstName = "";
   lastName = "";
   creditHours = 0;
+
 } // end constuctor
 
 void Student::init(std::string studentString){
   //studentString is "firstName,lastName,street,city,state,zip,birthDate,gradDate,creditHours" or "fn,ln,address,bd,gd,credit"
   std::stringstream converter;
-  std::string addressString;
+  std::string street, city, state, zip;
   std::string birth;
   std::string grad;
   std::string creditString;
@@ -19,10 +20,10 @@ void Student::init(std::string studentString){
   converter.str(studentString);
   getline(converter, firstName, ',');
   getline(converter, lastName, ',');
-  getline(converter, addressString, ','); //street
-  getline(converter, addressString, ','); //city
-  getline(converter, addressString, ','); //state
-  getline(converter, addressString, ','); //zip
+  getline(converter, street, ','); //street
+  getline(converter, city, ','); //city
+  getline(converter, state, ','); //state
+  getline(converter, zip, ','); //zip
   getline(converter, birth, ',');
   getline(converter, grad, ',');
   getline(converter, creditString);
@@ -33,14 +34,14 @@ void Student::init(std::string studentString){
   converter << creditString;
   converter >> creditHours;
 
-  Date birthDate;
-  birthDate.init(birth);
+  birthDate = new Date();
+  birthDate->init(birth);
 
-  Date gradDate;
-  gradDate.init(grad);
+  gradDate = new Date();
+  gradDate->init(grad);
 
-  Address address;
-  address.init(addressString);
+  address = new Address();
+  address->init(street, city, state, zip);
 } // end init
 
 void Student::printStudent(){
@@ -50,5 +51,27 @@ void Student::printStudent(){
    *DOB: birthDate
    *Grad: gradDate
    *Credits: creditHours
+   */
+  std::cout << firstName << " " << lastName << std::endl;
+  address->printAddress();
+  std::cout << "DOB: ";
+  birthDate->printDate();
+  std::cout << "Grad: ";
+  gradDate->printDate();
+  std::cout << "Credits: " << creditHours << std::endl;
+} // end printStudent
 
- 
+std::string Student::getLastFirst(){
+  return lastName + ", " + firstName;
+} // end getLastFirst
+
+std::string Student::getLast(){
+  return lastName;
+} // end getLast
+
+Student::~Student(){
+  delete birthDate;
+  delete gradDate;
+  delete address;
+} // end destructor
+
