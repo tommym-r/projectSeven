@@ -15,25 +15,42 @@ void loadStudents(std::vector<Student*>&);
 void printStudents(std::vector<Student*>&);
 void showStudentNames(std::vector<Student*>&);
 void findStudent(std::vector<Student*>&);
-void delStudents(std::vector<Student*>&);
 std::string menu();
-
-std::vector<Students*> students;
 
 int main(){
   //std::cout << "Hello!" << std::endl;
   //testAddress();
   //testDate();
   //testStudent();
+  std::vector<Student*> students;
+  loadStudents(students);
+  std::string input;
+  bool going = true;
+  while (going){
+    input = menu();
+    if (input == "0"){
+      going = false;
+    } else if (input == "1"){
+      showStudentNames(students);
+    } else if (input == "2"){
+      printStudents(students);
+    } else if (input == "3"){
+      findStudent(students);
+    } else {
+      std::cout << "invalid input, try again" << std::endl;
+    } // end if else
+  } // end while going
+
+  students.clear();
   return 0;
 } // end main
 
-void loadStudents(std::vector<Student*>&){
+void loadStudents(std::vector<Student*>& students){
   std::ifstream inFile;
   std::string currentLine;
 
   inFile.open("students.csv");
-  while (getLine(inFile, currentLine)){
+  while (getline(inFile, currentLine)){
     Student* stu = new Student();
     stu->init(currentLine);
     students.push_back(stu);
@@ -41,29 +58,29 @@ void loadStudents(std::vector<Student*>&){
   inFile.close();
 } // end loadStudents
 
-void printStudents(std::vector<Student*>&){
+void printStudents(std::vector<Student*>& students){
   for (Student* s : students){
-    s->printStudents();
+    s->printStudent();
   } // end for
   std::cout << std::endl;
 } // end printStudents
 
-void showStudentNames(std::vector<Student*>&){
+void showStudentNames(std::vector<Student*>& students){
   std::string name;
   for (Student* s: students){
-    name = s.getLastFirst();
+    name = s->getLastFirst();
     std::cout << name << std::endl;
   } // end for
 } // end showStudentNames
 
-void findStudents(std::vector<Student*>&){
+void findStudent(std::vector<Student*>& students){
   std::string search;
   std::string lName;
   std::vector<Student*> matches;
   std::cout << "Last name of student: " << std::endl;
   std::cin >> search;
   for (Student* s: students){
-    lName = s.getLast();
+    lName = s->getLast();
     if (lName.find(search) != std::string::npos){
       matches.push_back(s);
     } // end if
@@ -77,7 +94,15 @@ void findStudents(std::vector<Student*>&){
 
 std::string menu(){
   std::string input;
-  bool going;
+  std::cout << "0) quit" << std::endl << "1) print all student names" << std::endl << "2) print all student data" << std::endl << "3) find a student" << std::endl;
+  std::cin >> input;
+  return input;
+}
+
+/*
+std::string menu(){
+  std::string input;
+  bool going = true;
   while (going){
     std::cout << "0) quit" << std::endl << "1) print all student names" << std::endl << "2) print all student data" << std::endl << "3) find a student" << std::endl;
     std::cin >> input;
@@ -85,18 +110,17 @@ std::string menu(){
       going = false;
       run = false;
     } else if (input == "1"){
-      showStudentNames(students);
+      return showStudentNames(students);
     } else if (input == "2"){
       printStudents(students);
     } else if (input == "3"){
-      findStudents(students);
+      findStudent(students);
     } else {
       std::cout << "invalid input, try again" << std::endl;
     } // end if else
   } // end while
 } // end menu
- 
-
+*/
 
 /*
 void testAddress(){
