@@ -67,11 +67,15 @@ print this new vector
 if no matches found, print a line saying "no matches found"
 
 menu
-bool while loop to keep running until quit
 present user options: 0,1,2,3 for quit,print names,print data,search for student
+take the user input as a string and return it for main to use 
+
+main
+load vector from students.csv
+loop with boolean until user choses exit in menu
+run menu and save output to value
 if 0
   change bool to false
-  change bool in main to false as well
 if 1
   run showstudentnames function
 if 2
@@ -79,13 +83,6 @@ if 2
 if 3
   run findstudents
 if none
-  print statement alerting invalid input, loop should start again printing the options again
-
-
-main
-load vector from students.csv
-loop with boolean until user choses exit in menu
-  offer menu
-  perform necesarry tasks
+  print statement alerting invalid input, loop should start again calling menu and printing the options again for the user to add a new input
 clear student vector
 ```
